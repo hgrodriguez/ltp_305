@@ -4,7 +4,21 @@
 --  SPDX-License-Identifier: BSD-3-Clause
 --
 
-package body Pimoroni_LED_Dot_Matrix is
+with LTP_305.Font;
+
+package body LTP_305 is
+
+   procedure Initialize (This    : HAL.I2C.Any_I2C_Port;
+                         Address : HAL.I2C.I2C_Address) is
+      Init_Options : constant HAL.UInt8 := 2#00001110#;
+      --  1110 = 35 mA; 0000 = 40 mA
+      Init_Mode    : constant HAL.UInt8 := 2#00011000#;
+   begin
+      Write_Byte_Data (This, Address, Reset, 16#FF#);
+      Write_Byte_Data (This, Address, Mode, Init_Mode);
+      Write_Byte_Data (This, Address, Options, Init_Options);
+      Write_Byte_Data (This, Address, Brightness, 255);
+   end Initialize;
 
    procedure Write_Byte_Data
      (This    : HAL.I2C.Any_I2C_Port;
@@ -76,15 +90,21 @@ package body Pimoroni_LED_Dot_Matrix is
       return Convert (U);
    end To_Right_Matrix;
 
+   -----------------------------------------------------------------------
+   --  converts the
+   --    Font.Matrix_Array into the required Display_Matrix format
+   -----------------------------------------------------------------------
+   function Convert_FMA (FMA : Font.Matrix_Array) return Display_Matrix;
+
    procedure Write (This     : HAL.I2C.Any_I2C_Port;
                     Address  : HAL.I2C.I2C_Address;
-                    Location : Pimoroni_LED_Dot_Matrix.Command;
-                    Index    : Integer;
+                    Location : Command;
+                    Code     : Integer;
                     DP       : Boolean) is
       FMA        : Font.Matrix_Array;
       D_B        : Display_Matrix;
    begin
-      FMA := Font.Get (Idx => Index);
+      FMA := Font.Get (Idx => Code);
       D_B := Convert_FMA (FMA => FMA);
       if Location = Matrix_L then
          Write_Block_Data (This, Address,
@@ -117,4 +137,4 @@ package body Pimoroni_LED_Dot_Matrix is
       return Result;
    end Convert_FMA;
 
-end Pimoroni_LED_Dot_Matrix;
+end LTP_305;

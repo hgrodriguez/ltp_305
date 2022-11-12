@@ -3,7 +3,7 @@
 --
 --  SPDX-License-Identifier: BSD-3-Clause
 --
-package body Font is
+package body LTP_305.Font is
    function Get
       (Idx : Integer)
       return UInt8_Array
@@ -16,4 +16,4 @@ package body Font is
       end loop;
       return (16#7F#, 16#7F#, 16#7F#, 16#7F#, 16#7F#);
    end Get;
-end Font;
+end LTP_305.Font;

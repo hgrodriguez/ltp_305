@@ -7,11 +7,11 @@ with RP.Device;
 with RP.Clock;
 with Pico;
 
-with Pimoroni_LED_Dot_Matrix;
+with LTP_305;
 
 procedure Test is
 
-   package DMD renames Pimoroni_LED_Dot_Matrix;
+   package DMD renames LTP_305;
 
    SDA  : GPIO_Point renames Pico.GP0;
    SCL  : GPIO_Point renames Pico.GP1;
@@ -34,17 +34,16 @@ begin
    SCL.Configure (Output, Pull_Up, RP.GPIO.I2C, Schmitt => True);
    Port.Configure (400_000);
 
-   DMD.Write_Byte_Data (Port'Access, Address, DMD.Mode, 2#0001_1000#);
-   DMD.Write_Byte_Data (Port'Access, Address, DMD.Options, 2#0000_1110#);
-   DMD.Write_Byte_Data (Port'Access, Address, DMD.Brightness, 255);
+   DMD.Initialize (This    => Port'Access,
+                   Address => Address);
    T := Clock;
    loop
       if Show_Char_Right then
          DMD.Write (This     => Port'Access,
                 Address  => Address,
                 Location => DMD.Matrix_R,
-                Index    => C_I,
-                DP       => True);
+                    Code     => C_I,
+                    DP       => True);
 
          if Show_White then
             DMD.Write_Block_Data (Port'Access, Address,
@@ -59,7 +58,7 @@ begin
          DMD.Write (This     => Port'Access,
                 Address  => Address,
                 Location => DMD.Matrix_L,
-                Index    => C_I,
+                Code     => C_I,
                 DP       => True);
          if Show_White then
             DMD.Write_Block_Data (Port'Access, Address,
