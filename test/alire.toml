@@ -9,10 +9,10 @@ maintainers-logins = ["JeremyGrosser"]
 executables = ["test"]
 
 [[depends-on]]
-ltp305 = "*"
+ltp_305 = "*"
 
 [[pins]]
-ltp305 = { path='..' }
+ltp_305 = { path='..' }
 
 [[depends-on]]
 pico_bsp = "^2.0.0"

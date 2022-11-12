@@ -16,6 +16,7 @@ project Test is
       for Default_Switches ("Ada") use Test_Config.Ada_Compiler_Switches & (
          "-gnatyM120"
       );
+      for Local_Configuration_Pragmas use "../gnat.adc";
    end Compiler;
 
    package Binder is

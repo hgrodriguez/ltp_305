@@ -1,10 +1,13 @@
-name = "ltp305"
-description = "Shiny new project"
-version = "0.1.0-dev"
+name = "ltp_305"
+description = "Driver for Pimoroni LED"
+version = "0.1.0"
 
 authors = ["Jeremy Grosser"]
-maintainers = ["Jeremy Grosser <jeremy@synack.me>"]
-maintainers-logins = ["JeremyGrosser"]
+maintainers = ["Jeremy Grosser <jeremy@synack.me>", "Holger Rodriguez <github@roseng.ch>"]
+maintainers-logins = ["JeremyGrosser", "hgrodriguez"]
+
+tags = ["embedded", "led", "rp2040", "i2c"]
+website = "https://github.com/hgrodriguez/ltp_305"
 
 [[depends-on]]
 hal = "~0.3.0"

@@ -14,9 +14,12 @@ with Ada.Unchecked_Conversion;
 with Interfaces;
 with HAL.I2C;
 
+with Font;
+
 package Pimoroni_LED_Dot_Matrix is
 
-   Default_Address : constant HAL.I2C.I2C_Address := 2#0011_0000#;
+   use HAL;
+   Default_Address : constant HAL.I2C.I2C_Address := 16#61# * 2;
 
    subtype Display_Column is Integer range 0 .. 4;
    subtype Display_Row is Integer range 0 .. 6;
@@ -25,7 +28,13 @@ package Pimoroni_LED_Dot_Matrix is
    type Matrix_Bits is new Interfaces.Unsigned_64;
    subtype Matrix_Array is HAL.UInt8_Array (1 .. 8);
 
-   type Command is (Mode, Matrix_R, Update, Options, Matrix_L, Brightness, Reset)
+   type Command is (Mode,
+                    Matrix_R,
+                    Update,
+                    Options,
+                    Matrix_L,
+                    Brightness,
+                    Reset)
       with Size => 8;
 
    for Command use (
@@ -101,5 +110,25 @@ package Pimoroni_LED_Dot_Matrix is
       (DM : Display_Matrix;
        DP : Boolean := False)
       return Matrix_Array;
+
+   -----------------------------------------------------------------------
+   --  Writes the
+   --    character from Font.Characters (Index)
+   --  into the
+   --    Location: left/right
+   --  and sets the decimal point dependent on
+   --    DP
+   -----------------------------------------------------------------------
+   procedure Write (This     : HAL.I2C.Any_I2C_Port;
+                    Address  : HAL.I2C.I2C_Address;
+                    Location : Command;
+                    Index    : Integer;
+                    DP       : Boolean);
+private
+   -----------------------------------------------------------------------
+   --  converts the
+   --    Font.Matrix_Array into the required Display_Matrix format
+   -----------------------------------------------------------------------
+   function Convert_FMA (FMA : Font.Matrix_Array) return Display_Matrix;
 
 end Pimoroni_LED_Dot_Matrix;
