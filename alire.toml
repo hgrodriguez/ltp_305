@@ -1,6 +1,6 @@
 name = "ltp_305"
 description = "Driver for Pimoroni LED"
-version = "0.2.0"
+version = "0.3.0"
 licenses = "BSD-3-Clause"
 
 authors = ["Jeremy Grosser"]
@@ -11,4 +11,4 @@ tags = ["embedded", "led", "rp2040", "i2c"]
 website = "https://github.com/hgrodriguez/ltp_305"
 
 [[depends-on]]
-hal = "~0.3.0"
+hal = "^1"
