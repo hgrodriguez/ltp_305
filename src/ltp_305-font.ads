@@ -3,8 +3,6 @@
 --
 --  SPDX-License-Identifier: BSD-3-Clause
 --
-with HAL; use HAL;
-
 private package LTP_305.Font is
    subtype Matrix_Array is UInt8_Array (1 .. 5);
    type Matrix_Character is record

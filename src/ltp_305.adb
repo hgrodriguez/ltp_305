@@ -121,7 +121,6 @@ package body LTP_305 is
       Mask   : HAL.UInt8;
       Column : Integer;
       Result : Display_Matrix := (others => (others => False));
-      use HAL;
    begin
       Mask := 1;
       for Row in Display_Matrix'First (2)

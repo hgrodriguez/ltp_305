@@ -15,4 +15,4 @@ ltp_305 = "*"
 ltp_305 = { path='..' }
 
 [[depends-on]]
-pico_bsp = "^2.0.0"
+pico_bsp = "^2"

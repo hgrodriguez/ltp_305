@@ -1,3 +1,4 @@
+with HAL; use HAL;
 with HAL.I2C;
 
 with RP.Timer; use RP.Timer;
@@ -13,11 +14,11 @@ procedure Test is
 
    package DMD renames LTP_305;
 
-   SDA  : GPIO_Point renames Pico.GP0;
-   SCL  : GPIO_Point renames Pico.GP1;
-   Port : RP.I2C_Master.I2C_Master_Port renames RP.Device.I2CM_0;
+   SDA  : GPIO_Point renames Pico.GP14;
+   SCL  : GPIO_Point renames Pico.GP15;
+   Port : RP.I2C_Master.I2C_Master_Port renames RP.Device.I2CM_1;
 
-   Address    : constant HAL.I2C.I2C_Address := DMD.Default_Address;
+   Address    : constant HAL.I2C.I2C_Address := 16#61# * 2;
    BLACK      : constant DMD.Display_Matrix := (others => (others => False));
    WHITE      : constant DMD.Display_Matrix := (others => (others => True));
    Show_White : Boolean := True;
