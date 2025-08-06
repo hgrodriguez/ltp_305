@@ -1,6 +1,6 @@
 name = "ltp_305"
 description = "Driver for Pimoroni LED"
-version = "1.0.0"
+version = "1.1.0"
 licenses = "BSD-3-Clause"
 
 authors = ["Jeremy Grosser"]
